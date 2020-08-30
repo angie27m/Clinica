@@ -1,0 +1,112 @@
+<div [hidden]="isAdding" class="example-header">
+    <h1 align="center"> DETALLE CONSULTAS</h1>
+    <button mat-raised-button color="accent" type="button" style="float: right" (click)="abrirForm()">
+        Agregar detalle<mat-icon>playlist_add</mat-icon>
+    </button>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar detalle consulta">
+    </mat-form-field>
+    <mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="diagnostico">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnóstico</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.diagnostico}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="tratamiento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tratamiento </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.tratamiento}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row" (click)="abrirDialogo(row)">
+                <button mat-button color="primary">
+                    <mat-icon>border_color</mat-icon>
+                </button>
+                <button mat-button color="accent" (click)="eliminar(row.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <br>
+</div>
+<div [hidden]="!isAdding">
+    <mat-label>Datos detalle consulta: </mat-label>
+    <br><br>
+    <form class="example-container" [formGroup]="form" #frmDetalle="ngForm" (ngSubmit)="guardarDetalle()">
+        <mat-form-field>
+            <input matInput placeholder="Diagnóstico: " minlength="3" maxlength="50" required
+                formControlName="diagnostico">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput placeholder="Tratamiento: " minlength="3" maxlength="50" required
+                formControlName="tratamiento">
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="accent" type="button" style="float: left" [disabled]="frmDetalle.invalid"
+            (click)="guardarDetalle()">
+            Aceptar<mat-icon>check_circle_outline</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" type="button" style="float: left" (click)="ocultarDetalle()">
+            Volver a detalle consultas<mat-icon>assignment_return</mat-icon>
+        </button>
+    </form>
+</div>
+
+<div class="example-header">
+    <br>
+    <h1 align="center">EXÁMENES</h1>
+    <button mat-raised-button color="accent" type="button" style="float: right" (click)="abrirDialogoEx()">
+        Agregar exámen<mat-icon>playlist_add</mat-icon>
+    </button>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilterEx($event.target.value)" placeholder="Buscar exámen">
+    </mat-form-field>
+    <mat-table [dataSource]="dataSourceEx" matSort>
+
+        <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre del exámen</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="infoAdicional">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Información adicional </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.infoAdicional}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-button color="accent" (click)="eliminarEx(row.nombre)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsEx"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsEx;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <br>
+    <button mat-raised-button color="primary" type="button" style="float: right" routerLink="/consultas">
+        Volver a consultas<mat-icon>assignment_return</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,57 @@
+<div [hidden]="route.children.length !== 0" class="example-header">
+        <h1 align="center"> CONSULTAS</h1>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar consulta">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="nombreMedico">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Médico</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.medico.nombreMedico}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let element"> <span>{{element.fecha | date:'yyyy/MM/dd'}}</span> </mat-cell>
+
+            </ng-container>
+
+            <ng-container matColumnDef="detalle">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Detalle Consulta </mat-header-cell>
+                <mat-cell *matCellDef="let row" (click)="abrirDetalle(row.id)">
+                    <button mat-button>
+                        Visualizar <mat-icon color="accent">find_in_page</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                <mat-cell *matCellDef="let row" (click)="abrirDialogo(row)">
+                    <button mat-button color="primary">
+                        <mat-icon>border_color</mat-icon>
+                    </button>
+                    <button mat-button color="accent" (click)="eliminar(row.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+       
+        <br />
+        <button mat-fab color="accent" type="button" style="float: right" routerLink="/consultas/guardar-consultas">
+            <mat-icon>playlist_add</mat-icon>
+        </button> 
+</div>
+<router-outlet (activate)="onChildLoaded($event)"></router-outlet>

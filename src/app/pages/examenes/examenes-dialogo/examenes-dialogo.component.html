@@ -1,0 +1,18 @@
+<div>
+    <mat-label>Datos exámen: </mat-label>
+    <br><br>
+    <mat-form-field>
+        <input matInput placeholder="Nombre Exámen: " minlength="3" maxlength="50" [(ngModel)]="examen.nombre">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Descripción: " minlength="3" maxlength="150" [(ngModel)]="examen.descripcion">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="operar()">
+        <mat-icon>check_circle_outline</mat-icon>Aceptar
+    </button>
+    <button mat-raised-button color="accent" (click)="cerrarDialogo()">
+        <mat-icon>highlight_off</mat-icon>Cancelar
+    </button>
+</div>

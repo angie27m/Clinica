@@ -1,0 +1,17 @@
+<div>
+    <mat-label>Datos exámen: </mat-label>
+    <br><br>
+    <mat-form-field>
+        <mat-label>Nombre exámen: </mat-label>
+        <mat-select [(ngModel)]="vista.idExamen">
+            <mat-option *ngFor="let item of lista" [value]="item.id" required>{{item.nombre}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Información Adicional: " minlength="3" maxlength="50" required [(ngModel)]="vista.infoAdicional">
+    </mat-form-field>
+    <br>
+<button mat-raised-button color="primary"(click)="guardar()"><mat-icon>check_circle_outline</mat-icon>Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrarDialogo()"><mat-icon>highlight_off</mat-icon>Cancelar</button>
+

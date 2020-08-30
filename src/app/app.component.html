@@ -1,0 +1,54 @@
+<div class="example-container">
+  <mat-toolbar color="primary" class="example-toolbar">
+
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+
+    <h1 class="example-app-name">CLÍNICA SANA QUE SANA</h1>
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/perfil">
+        <mat-icon>account_box</mat-icon>
+        <span>Mi Perfil</span>
+      </button>
+      <button mat-menu-item (click)="sidenav.opened = false">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #sidenav style="width: 200px">
+      <mat-divider></mat-divider>
+      <button mat-menu-item style="cursor: pointer" routerLink="/consultas" (click)="sidenav.opened = false">
+        <mat-icon>assignment_ind</mat-icon>
+        <span>Consulta</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item style="cursor: pointer" routerLink="/medicos" (click)="sidenav.opened = false">
+        <mat-icon>person</mat-icon>
+        <span>Médico</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item style="cursor: pointer" routerLink="/examenes" (click)="sidenav.opened = false">
+        <mat-icon>healing</mat-icon>
+        <span>Exámen</span>
+      </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>

@@ -1,0 +1,26 @@
+<div>
+    <mat-label>Datos consulta: </mat-label>
+    <br><br>
+    <div [hidden]="isSaving">
+        <mat-form-field>
+            <input matInput placeholder="Id" [(ngModel)]="consulta.id" [disabled]="!isSaving">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <mat-label>Nombre Médico: </mat-label>
+        <mat-select [(ngModel)]="consulta.medico"  >
+          <mat-option *ngFor="let item of lista" [value]="item">{{item.nombreMedico}} </mat-option>
+        </mat-select>        
+      </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Fecha: </mat-label>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker"[(ngModel)]="consulta.fecha">        
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>
+
+<button mat-raised-button color="primary"(click)="operar()"><mat-icon>check_circle_outline</mat-icon>Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrarDialogo()"><mat-icon>highlight_off</mat-icon>Cancelar</button>

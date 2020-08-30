@@ -1,0 +1,18 @@
+<div>
+    <mat-label>Datos médico: </mat-label>
+    <br><br>
+    <mat-form-field>
+        <input matInput placeholder="Nombre Médico: " minlength="3" maxlength="50" [(ngModel)]="medico.nombreMedico">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Dirección: " minlength="3" maxlength="100" [(ngModel)]="medico.direccion.detalle">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="operar()">
+        <mat-icon>check_circle_outline</mat-icon>Aceptar
+    </button>
+    <button mat-raised-button color="accent" (click)="cerrarDialogo()">
+        <mat-icon>highlight_off</mat-icon>Cancelar
+    </button>
+</div>

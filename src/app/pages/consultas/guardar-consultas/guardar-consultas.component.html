@@ -1,0 +1,129 @@
+<div style="float: left">
+    <h1 align="center"> GUARDAR CONSULTA</h1>
+    <button mat-raised-button color="accent" type="button" style="float: right" (click)="guardarConsulta()">
+        Agregar consulta<mat-icon>playlist_add</mat-icon>
+    </button>
+    <br><br>
+    <mat-label>Datos consulta: </mat-label>
+    <br><br>
+    <mat-form-field>
+        <mat-label>Nombre Médico: </mat-label>
+        <mat-select [(ngModel)]="consulta.medico" [(value)]="item">
+            <mat-option *ngFor="let item of lista" [(value)]="item">{{item.nombreMedico}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Fecha: </mat-label>
+        <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" [(ngModel)]="consulta.fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br><br>
+    <button mat-raised-button color="accent" type="button" style="float: right" (click)="mostrarDetalle()">
+        Agregar detalle<mat-icon>playlist_add</mat-icon>
+    </button>
+    <button mat-raised-button color="primary" type="button" style="float: right" (click)="mostrarExamen()">
+        Agregar exámen<mat-icon>playlist_add</mat-icon>
+    </button>
+    <br><br>
+</div>
+<br><br><br><br>
+<button mat-raised-button color="primary" type="button" style="float: right" routerLink="/consultas">
+    Volver a consultas<mat-icon>assignment_return</mat-icon>
+</button>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div [hidden]="viewDetalle" class="example-header">
+    <br><br>
+    <h1 align="center"> DETALLE CONSULTAS</h1>
+    <br><br>
+    <mat-form-field>
+        <mat-label>Seleccione un detalle consulta: </mat-label>
+        <br><br>
+        <mat-select [(ngModel)]="detalle" [(value)]="itemDet">
+            <mat-option *ngFor="let itemDet of listaDet" [(value)]="itemDet">{{itemDet.diagnostico}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br><br>
+    <button mat-raised-button color="accent" type="button" (click)="guardarDetalle()">
+        Agregar detalle<mat-icon>playlist_add</mat-icon>
+    </button>
+    <br><br>
+    <mat-table [dataSource]="dataSourceDtl" matSort>
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="diagnostico">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnóstico</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.diagnostico}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="tratamiento">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tratamiento </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.tratamiento}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-button color="accent" (click)="eliminarDetalle(row)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsDtl"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsDtl;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <br>
+</div>
+
+<div [hidden]="viewExamen" class="example-header">
+    <br><br>
+    <h1 align="center">EXÁMENES</h1>
+    <br><br>
+    <mat-form-field>
+        <mat-label>Seleccione un exámen consulta: </mat-label>
+        <mat-select [(ngModel)]="examen" [(value)]="itemEx">
+            <mat-option *ngFor="let itemEx of listaEx" [(value)]="itemEx">{{itemEx.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Información adicional: " minlength="3" maxlength="150"
+            [(ngModel)]="consultaE.infoAdicional">
+    </mat-form-field>
+    <br><br>
+    <button mat-raised-button color="primary" type="button" (click)="guardarExamen()">
+        Agregar exámen<mat-icon>playlist_add</mat-icon>
+    </button>
+    <br><br>
+    <mat-table [dataSource]="dataSourceEx" matSort>
+        <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre del exámen</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-button color="accent" (click)="eliminarExamen(row)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsEx"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsEx;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<br>

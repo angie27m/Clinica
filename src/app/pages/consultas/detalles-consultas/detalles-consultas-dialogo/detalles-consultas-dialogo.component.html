@@ -1,0 +1,14 @@
+<div>
+    <mat-label>Datos detalle consulta: </mat-label>
+    <br><br> 
+    <mat-form-field>
+        <input matInput placeholder="Diagnóstico: " minlength="3" maxlength="50" [(ngModel)]="detalleConsulta.diagnostico">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Tratamiento: " minlength="3" maxlength="50" [(ngModel)]="detalleConsulta.tratamiento">
+    </mat-form-field>
+</div>
+
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrarDialogo()">Cancelar</button>
